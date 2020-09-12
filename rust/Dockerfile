@@ -4,10 +4,11 @@ USER root
 RUN apk update; \
     apk add build-base gcc curl git zip; \
     rm -rf /var/cache/apk/*; \
-    curl -o /rustup-init https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init; \
+    curl -o /rustup-init https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-musl/rustup-init && \
     chmod +x /rustup-init; \
     /rustup-init -y; \
-    rm -f /rustup-init
+    rm -f /rustup-init; \
+    cargo install cross;
 
 RUN rustup target add x86_64-pc-windows-gnu; \
     rustup target add x86_64-unknown-linux-gnu; \
