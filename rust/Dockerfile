@@ -11,6 +11,7 @@ RUN apk update; \
     chmod +x /rustup-init; \
     /rustup-init -y; \
     rm -f /rustup-init; \
+    cat $HOME/.cargo/env; \
     source $HOME/.cargo/env; \
     cargo install cross; \
     find / -name *mingw*; \
