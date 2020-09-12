@@ -1,20 +1,21 @@
 FROM docker:19-dind-rootless
 
 USER root
+ENV CROSS_DOCKER_IN_DOCKER=true
+
+
 RUN apk update; \
-    apk add build-base gcc curl git zip; \
+    apk add build-base gcc curl git zip mingw-w64-binutils; \
     rm -rf /var/cache/apk/*; \
     curl -o /rustup-init https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-musl/rustup-init && \
     chmod +x /rustup-init; \
     /rustup-init -y; \
     rm -f /rustup-init; \
-    cargo install cross;
+    source $HOME/.cargo/env; \
+    cargo install cross; \
+    find / -name x86_64-w64-mingw32-gcc
 
-RUN rustup target add x86_64-pc-windows-gnu; \
-    rustup target add x86_64-unknown-linux-gnu; \
-    rustup target add x86_64-apple-darwin; \
-    rustup target add aarch64-unknown-linux-gnu; \
-    rustup target add aarch64-unknown-linux-musl;
+RUN rustup target add x86_64-pc-windows-gnu;
 
 ADD ghr /usr/bin/ghr
 RUN chmod +x /usr/bin/ghr && \
@@ -23,7 +24,6 @@ RUN chmod +x /usr/bin/ghr && \
     printf "\nlinker = \"/usr/bin/x86_64-w64-mingw32-gcc\"" >> ~/.cargo/config
 
 
-ENV CROSS_DOCKER_IN_DOCKER=true
 
 
 
