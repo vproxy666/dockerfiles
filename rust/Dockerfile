@@ -13,7 +13,8 @@ RUN apk update; \
     rm -f /rustup-init; \
     source $HOME/.cargo/env; \
     cargo install cross; \
-    find / -name rustup; \
+    find / -name *mingw*; \
+    ls ~/.cargo/; \
     rustup target add x86_64-pc-windows-gnu;
 
 
