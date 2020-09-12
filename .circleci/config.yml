@@ -1,0 +1,15 @@
+version: 2.1
+workflows:
+  main:
+    jobs:
+      - build
+jobs:
+  build:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run:
+          name: "Build Rust CI Docker Image"
+          command: sudo chmod +x ./rust/build.sh; ./rust/build.sh
+
