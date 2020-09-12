@@ -2,7 +2,7 @@ FROM rust:slim-buster
 
 
 RUN apt-get update -y; \
-    apt-get install -y mingw-w64 build-essential curl binfmt-support qemu-user-static git; \
+    apt-get install -y mingw-w64 build-essential curl binfmt-support qemu-user-static git zip; \
     apt-get clean; 
 
 RUN rustup target add x86_64-pc-windows-gnu; \
@@ -11,10 +11,14 @@ RUN rustup target add x86_64-pc-windows-gnu; \
     rustup target add aarch64-unknown-linux-gnu; \
     rustup target add aarch64-unknown-linux-musl;
 
-
-RUN mkdir ~/.cargo/ && \
+ADD ghr /usr/bin/ghr
+RUN chmod +x /usr/bin/ghr && \
+    mkdir ~/.cargo/ && \
     printf "\n[target.x86_64-pc-windows-gnu]" >> ~/.cargo/config  && \
     printf "\nlinker = \"/usr/bin/x86_64-w64-mingw32-gcc\"" >> ~/.cargo/config
+
+
+
 
 
 
