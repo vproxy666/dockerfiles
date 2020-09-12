@@ -14,9 +14,7 @@ RUN rustup target add x86_64-pc-windows-gnu; \
 
 RUN mkdir ~/.cargo/ && \
     printf "\n[target.x86_64-pc-windows-gnu]" >> ~/.cargo/config  && \
-    printf "\nlinker = \"/usr/bin/x86_64-w64-mingw32-gcc\"" >> ~/.cargo/config && \
-    printf "\nar = \"/usr/bin/x86_64-w64-mingw32-gcc-ar\"" >> ~/.cargo/config && \
-    printf "\nranlib = \"/usr/bin/x86_64-w64-mingw32-gcc-ranlib\"" >> ~/.cargo/config 
+    printf "\nlinker = \"/usr/bin/x86_64-w64-mingw32-gcc\"" >> ~/.cargo/config
 
 
 
