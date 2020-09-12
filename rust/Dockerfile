@@ -2,7 +2,7 @@ FROM rust:slim-buster
 
 
 RUN apt-get update -y; \
-    apt-get install -y mingw-w64 build-essential curl binfmt-support qemu-user-static; \
+    apt-get install -y mingw-w64 build-essential curl binfmt-support qemu-user-static git; \
     apt-get clean; 
 
 RUN rustup target add x86_64-pc-windows-gnu; \
@@ -20,10 +20,5 @@ RUN mkdir ~/.cargo/ && \
     printf "\nranlib = \"/usr/bin/x86_64-w64-mingw32-gcc-ranlib\"" >> ~/.cargo/config && \
     printf "\ncrt-static = true" >> ~/.cargo/config 
 
-
-ADD startup.sh /startup.sh
-RUN chmod +x /startup.sh;
-
-ENTRYPOINT ["/startup.sh"]
 
 
