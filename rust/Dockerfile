@@ -1,6 +1,6 @@
 FROM docker:19-dind-rootless
 
-
+USER root
 RUN apk update; \
     apk add build-base gcc curl git zip; \
     rm -rf /var/cache/apk/*; \
