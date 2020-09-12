@@ -5,7 +5,7 @@ ENV CROSS_DOCKER_IN_DOCKER=true
 
 
 RUN apk update; \
-    apk add build-base gcc curl git zip mingw-w64-gcc mingw-w64-winpthreads; \
+    apk add build-base gcc curl git zip mingw-w64-gcc mingw-w64-winpthreads mingw-w64-crt; \
     rm -rf /var/cache/apk/*; \
     curl -o /rustup-init https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-musl/rustup-init && \
     chmod +x /rustup-init; \
@@ -25,12 +25,7 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 ADD ghr /usr/bin/ghr
 RUN chmod +x /usr/bin/ghr && \
     printf "\n[target.x86_64-pc-windows-gnu]" >> ~/.cargo/config  && \
-    printf "\nlinker = \"/usr/bin/x86_64-w64-mingw32-gcc\"" >> ~/.cargo/config && \
-    printf "\nld = \"/usr/bin/x86_64-w64-mingw32-gcc-ld\"" >> ~/.cargo/config && \
-    printf "\nar = \"/usr/bin/x86_64-w64-mingw32-gcc-ar\"" >> ~/.cargo/config && \
-    printf "\nnm = \"/usr/bin/x86_64-w64-mingw32-gcc-nm\"" >> ~/.cargo/config && \
-    printf "\nranlib = \"/usr/bin/x86_64-w64-mingw32-gcc-ranlib\"" >> ~/.cargo/config && \
-    printf "\ncrt-static = true" >> ~/.cargo/config 
+    printf "\nlinker = \"/usr/bin/x86_64-w64-mingw32-gcc\"" >> ~/.cargo/config
 
 
 
