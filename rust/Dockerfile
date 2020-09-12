@@ -3,7 +3,7 @@ FROM docker:19-dind-rootless
 
 RUN apk update -y; \
     apk add build-base gcc curl git zip; \
-    apk clean; \
+    rm -rf /var/cache/apk/*; \
     curl -o /rustup-init https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init; \
     chmod +x /rustup-init; \
     /rustup-init -y; \
