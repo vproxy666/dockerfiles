@@ -11,12 +11,11 @@ RUN apk update; \
     chmod +x /rustup-init; \
     /rustup-init -y; \
     rm -f /rustup-init; \
-    cat $HOME/.cargo/env; \
     source $HOME/.cargo/env; \
     cargo install cross; \
-    find / -name *mingw*; \
     rustup target add x86_64-pc-windows-gnu;
 
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 ADD ghr /usr/bin/ghr
 RUN chmod +x /usr/bin/ghr && \
