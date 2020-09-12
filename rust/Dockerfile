@@ -1,9 +1,13 @@
-FROM rust:slim-buster
+FROM docker:19-dind-rootless
 
 
 RUN apt-get update -y; \
     apt-get install -y mingw-w64 build-essential curl binfmt-support qemu-user-static git zip; \
-    apt-get clean; 
+    apt-get clean; \
+    curl -o /rustup-init https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init; \
+    chmod +x /rustup-init; \
+    /rustup-init -y; \
+    rm -f /rustup-init
 
 RUN rustup target add x86_64-pc-windows-gnu; \
     rustup target add x86_64-unknown-linux-gnu; \
