@@ -11,5 +11,5 @@ jobs:
       - checkout
       - run:
           name: "Build Rust CI Docker Image"
-          command: sudo chmod +x ./rust/build.sh; ./rust/build.sh
+          command: ls; sudo chmod +x ./rust/build.sh; ./rust/build.sh
 
