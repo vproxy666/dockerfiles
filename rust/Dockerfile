@@ -16,7 +16,6 @@ RUN mkdir ~/.cargo/ && \
     printf "\n[target.x86_64-pc-windows-gnu]" >> ~/.cargo/config  && \
     printf "\nlinker = \"/usr/bin/x86_64-w64-mingw32-gcc\"" >> ~/.cargo/config && \
     printf "\nar = \"/usr/bin/x86_64-w64-mingw32-gcc-ar\"" >> ~/.cargo/config && \
-    printf "\nnm = \"/usr/bin/x86_64-w64-mingw32-gcc-nm\"" >> ~/.cargo/config && \
     printf "\nranlib = \"/usr/bin/x86_64-w64-mingw32-gcc-ranlib\"" >> ~/.cargo/config && \
     printf "\ncrt-static = true" >> ~/.cargo/config 
 
