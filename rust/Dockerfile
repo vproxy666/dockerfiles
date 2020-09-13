@@ -24,7 +24,7 @@ RUN set -ex \
   && mkdir -p /etc/docker/ \
   && printf '{ "experimental": true }' > /etc/docker/daemon.json \
   && mkdir -p $HOME/.docker/ \
-  && printf '{ "experimental": true }' > $HOME/.docker/config.json \
+  && printf '{ "experimental": "enabled" }' > $HOME/.docker/config.json \
   && (docker version || true)
 
 
