@@ -1,5 +1,6 @@
 FROM circleci/buildpack-deps:buster-dind
 
+USER root
 
 RUN apt-get update -y; \
     apt-get install -y mingw-w64 build-essential curl binfmt-support qemu-user-static git zip musl-tools; \
