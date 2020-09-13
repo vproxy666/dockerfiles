@@ -56,6 +56,10 @@ VOLUME /var/lib/docker
 
 ENTRYPOINT ["dockerd-entrypoint.sh"]
 
+RUN printf '{ "experimental": true }' > /etc/docker/daemon.json; \
+    printf '{ "experimental": true }' > $HOME/.docker/config.json
+ENV DOCKER_CLI_EXPERIMENTAL=enabled
+
 # https://doc.rust-lang.org/nightly/rustc/platform-support.html
 RUN cargo install cross; \
     rustup target add x86_64-pc-windows-gnu; \
@@ -67,7 +71,8 @@ RUN cargo install cross; \
 
 ADD ghr /usr/bin/ghr
 RUN chmod +x /usr/bin/ghr && \
-    printf "\n[target.x86_64-pc-windows-gnu]" >> ~/.cargo/config  && \
+    mkdir -p $HOME/.cargo/; \
+    printf "\n[target.x86_64-pc-windows-gnu]" >> $HOME/.cargo/config  && \
     printf "\nlinker = \"/usr/bin/x86_64-w64-mingw32-gcc\"" >> ~/.cargo/config
     
 
