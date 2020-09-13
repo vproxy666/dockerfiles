@@ -9,6 +9,8 @@ RUN apt-get update -y; \
     net-tools netcat unzip zip bzip2 gnupg curl wget iptables xz-utils btrfs-progs; \
     apt-get clean; 
 
+ENV DOCKER_CLI_EXPERIMENTAL=enabled
+
 RUN set -ex \
   && export DOCKER_VERSION=docker-19.03.12.tgz \
   && DOCKER_URL="https://download.docker.com/linux/static/stable/x86_64/${DOCKER_VERSION}" \
@@ -19,6 +21,10 @@ RUN set -ex \
   && mv /tmp/docker/* /usr/bin \
   && rm -rf /tmp/docker /tmp/docker.tgz \
   && which docker \
+  && mkdir -p /etc/docker/ \
+  && printf '{ "experimental": true }' > /etc/docker/daemon.json \
+  && mkdir -p $HOME/.docker/ \
+  && printf '{ "experimental": true }' > $HOME/.docker/config.json \
   && (docker version || true)
 
 
@@ -54,11 +60,8 @@ exec "$@" \n\
 
 VOLUME /var/lib/docker
 
-ENTRYPOINT ["dockerd-entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/dockerd-entrypoint.sh"]
 
-RUN printf '{ "experimental": true }' > /etc/docker/daemon.json; \
-    printf '{ "experimental": true }' > $HOME/.docker/config.json
-ENV DOCKER_CLI_EXPERIMENTAL=enabled
 
 # https://doc.rust-lang.org/nightly/rustc/platform-support.html
 RUN cargo install cross; \
