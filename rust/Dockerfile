@@ -35,8 +35,7 @@ RUN wget -O /usr/local/bin/dind "https://raw.githubusercontent.com/docker/docker
     && chmod +x /usr/local/bin/dind
 
 RUN set -x \
-    && addgroup --system docker \
-    && sudo usermod --append --groups docker circleci
+    && addgroup --system docker
 
 # avoid creating separate files and embed file here
 RUN printf '#!/bin/sh \n\
