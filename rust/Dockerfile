@@ -25,6 +25,8 @@ ADD ghr /usr/bin/ghr
 RUN chmod +x /usr/bin/ghr && \
     printf "\n[target.x86_64-pc-windows-gnu]" >> ~/.cargo/config  && \
     printf "\nlinker = \"/usr/bin/x86_64-w64-mingw32-gcc\"" >> ~/.cargo/config
+    
+USER circleci
 
 
 
